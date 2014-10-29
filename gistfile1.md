@@ -1,6 +1,6 @@
 This document describes CTCP vSEx.
 
-CTCP vSEx is basically the CTCP you already know but with a different syntax:
+CTCP vSEx is basically the CTCP you already know but with a different syntax:  
 There can be at most 1 message and 1 CTCP in a single PRIVMSG/NOTICE.
 
 Syntax:
