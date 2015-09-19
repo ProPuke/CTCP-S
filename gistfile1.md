@@ -1,9 +1,9 @@
-CTCP vSEx
-=========
+CTCP-S
+======
 
 > Version: 1.0
 
-CTCP vSEx adds a few new CTCPs, and changes a few things about CTCP.
+CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
 First, unless otherwise stated, there can be at most 1 CTCP in a message.
 
