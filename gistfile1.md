@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.0
+> Version: 1.1
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -72,3 +72,20 @@ The syntax for the `FORWARD` CTCP is as follows:
 `<ID>` SHOULD be a nickname or an username, but MAY be an UUID. Formatting is allowed. The use of UUIDs is strongly discouraged, as UUIDs aren't human-readable.
 
 There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `FORWARD` CTCPs do not count against the 1 CTCP per message limit.
+
+`IMAGE`
+-------
+
+> Since: 1.1  
+
+The `IMAGE` CTCP is used to indicate an inline image.
+
+The syntax for the `IMAGE` CTCP is as follows:
+
+    IMAGE <src> [<width> <height>]
+
+`<src>` MUST be an URL. Clients SHOULD display the image inline, but MAY display the URL instead. Clients SHOULD allow the user to choose whether to inline the images or to display their URL.
+
+`<width>`and `<height>` MAY be present. They SHOULD be specified in pixels, but MAY be followed by a unit (e.g. `px`, `em`, etc).
+
+There can be as many `IMAGE` CTCPs in one message as one wants. `IMAGE` CTCPs count as part of a normal message.
