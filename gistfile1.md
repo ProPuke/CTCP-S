@@ -89,3 +89,13 @@ The syntax for the `IMAGE` CTCP is as follows:
 `<width>`and `<height>` MAY be present. They SHOULD be specified in pixels, but MAY be followed by a unit (e.g. `px`, `em`, etc).
 
 There can be as many `IMAGE` CTCPs in one message as one wants. `IMAGE` CTCPs count as part of a normal message.
+
+Null CTCPs
+==========
+
+Null CTCPs, `\001\001`, MAY appear at the start and/or end of a message. They MUST NOT appear in the middle of a message.
+
+Compatibility with previous clients
+===================================
+
+For compatibility with previous clients, you MAY append a "null CTCP" `\001\001` at the start/end of a message.
