@@ -90,6 +90,8 @@ The syntax for the `IMAGE` CTCP is as follows:
 
 There can be as many `IMAGE` CTCPs in one message as one wants. `IMAGE` CTCPs count as part of a normal message.
 
+Clients MAY refuse some URIs, such as URIs it doesn't know how to handle. In which case, the URI MUST be displayed instead.
+
 Null CTCPs
 ==========
 
