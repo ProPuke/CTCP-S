@@ -86,7 +86,7 @@ The syntax for the `IMAGE` CTCP is as follows:
 
 `<src>` MUST be an URL. Clients SHOULD display the image inline, but MAY display the URL instead. Clients SHOULD allow the user to choose whether to inline the images or to display their URL.
 
-`<width>`and `<height>` MAY be present. They SHOULD be specified in pixels, but MAY be followed by a unit (e.g. `px`, `em`, etc).
+`<width>`and `<height>` MAY be present. They SHOULD be specified in pixels, but MAY be followed by a unit (e.g. `px`, `em`, etc) instead. Clients MAY opt to limit the maximum width/height, and display the URL if the specified size is too big.
 
 There can be as many `IMAGE` CTCPs in one message as one wants. `IMAGE` CTCPs count as part of a normal message.
 
