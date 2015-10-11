@@ -1,13 +1,13 @@
 CTCP-S
 ======
 
-> Version: 1.0
+> Version: 1.2
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
 First, unless otherwise stated, there can be at most 1 CTCP in a message.
 
-Second, there can be at most 1 normal message in a CTCP message.
+Second, there can be at most 1 normal message in a CTCP message. A normal message is the concatenation of every non-CTCP part of a message.
 
 This specification does not invalidate the original CTCP specification. Its sole purpose is to extend the original.
 
