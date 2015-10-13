@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.2
+> Version: 1.3
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -71,7 +71,37 @@ The syntax for the `FORWARD` CTCP is as follows:
 
 `<ID>` SHOULD be a nickname or an username, but MAY be an UUID. Formatting is allowed. The use of UUIDs is strongly discouraged, as UUIDs aren't human-readable.
 
-There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `FORWARD` CTCPs do not count against the 1 CTCP per message limit.
+There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `FORWARD` CTCPs do not count against the 1 CTCP per message limit, and instead have their own limit.
+
+`BATCH` and `BATCHEND`
+----------------------
+
+> Since: 1.3  
+> See also: http://ircv3.net/specs/extensions/batch-3.2.html
+
+The `BATCH` and `BATCHEND` CTCPs are used to indicate that a series of messages are related.  
+Possible use-cases include eliminating the need for pastebin on IRC.
+
+The syntax for the `BATCH` and `BATCHEND` CTCPs is as follows:
+
+    BATCH <ID>
+    BATCHEND <ID>
+
+`<ID>` is a simple identifier and may contain spaces.
+
+There can be at most 1 `BATCH` or `BATCHEND` CTCP in one message. `BATCH` and `BATCHEND` CTCPs do not count against the 1 CTCP per message limit.
+
+### Example
+
+     - - // non-batched messages here // - - 
+    PRIVMSG User :\BATCH 1\001public class HelloWorld {
+    PRIVMSG User :\BATCH 1\001    public static void main(String[] args) {
+    PRIVMSG User :\BATCH 1\001        System.out.println("Hello World!");
+    PRIVMSG User :\BATCH 1\001    }
+    PRIVMSG User :\BATCHEND 1\001}
+     - - // more non-batched messages here // - - 
+
+**Note:** Because a CTCP-S can appear anywhere in a message, it is possible to evade most server-side CTCP filtering by appending the `BATCH` CTCPs at the middle or at the end of the message, instead of at the start.
 
 Null CTCPs
 ==========
