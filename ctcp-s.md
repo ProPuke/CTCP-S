@@ -94,11 +94,11 @@ There can be at most 1 `BATCH` or `BATCHEND` CTCP in one message. `BATCH` and `B
 ### Example
 
      - - // non-batched messages here // - - 
-    PRIVMSG User :\BATCH 1\001public class HelloWorld {
-    PRIVMSG User :\BATCH 1\001    public static void main(String[] args) {
-    PRIVMSG User :\BATCH 1\001        System.out.println("Hello World!");
-    PRIVMSG User :\BATCH 1\001    }
-    PRIVMSG User :\BATCHEND 1\001}
+    PRIVMSG User :\001BATCH 1\001public class HelloWorld {
+    PRIVMSG User :\001BATCH 1\001    public static void main(String[] args) {
+    PRIVMSG User :\001BATCH 1\001        System.out.println("Hello World!");
+    PRIVMSG User :\001BATCH 1\001    }
+    PRIVMSG User :\001BATCHEND 1\001}
      - - // more non-batched messages here // - - 
 
 **Note:** Because a CTCP-S can appear anywhere in a message, it is possible to evade most server-side CTCP filtering by appending the `BATCH` CTCPs at the middle or at the end of the message, instead of at the start.
