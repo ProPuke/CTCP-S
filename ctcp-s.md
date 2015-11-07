@@ -81,6 +81,7 @@ There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `F
 
 The `BATCH` and `BATCHEND` CTCPs are used to indicate that a series of messages are related.  
 Possible use-cases include eliminating the need for pastebin on IRC.
+Clients are encouraged to collapse a series of `BATCH` messages.
 
 The syntax for the `BATCH` and `BATCHEND` CTCPs is as follows:
 
