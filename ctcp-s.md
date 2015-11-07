@@ -73,6 +73,8 @@ The syntax for the `FORWARD` CTCP is as follows:
 
 There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `FORWARD` CTCPs do not count against the 1 CTCP per message limit, and instead have their own limit.
 
+**Side note:** It is possible to use `FORWARD` in a DCC chat to identify a message as belonging to a channel. In which case, it is up to the receiving end to parse any channel modes and guarantee the sender is allowed to send the given message to the channel. The message should be displayed in the channel.
+
 `BATCH` and `BATCHEND`
 ----------------------
 
@@ -80,8 +82,7 @@ There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `F
 > See also: http://ircv3.net/specs/extensions/batch-3.2.html
 
 The `BATCH` and `BATCHEND` CTCPs are used to indicate that a series of messages are related.  
-Possible use-cases include eliminating the need for pastebin on IRC.
-Clients are encouraged to collapse a series of `BATCH` messages.
+Possible use-cases include eliminating the need for pastebin on IRC. Clients are encouraged to collapse a series of `BATCH` messages.
 
 The syntax for the `BATCH` and `BATCHEND` CTCPs is as follows:
 
