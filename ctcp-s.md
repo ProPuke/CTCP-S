@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.3
+> Version: 1.4
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -104,6 +104,28 @@ There can be at most 1 `BATCH` or `BATCHEND` CTCP in one message. `BATCH` and `B
      - - // more non-batched messages here // - - 
 
 **Note:** Because a CTCP-S can appear anywhere in a message, it is possible to evade most server-side CTCP filtering by appending the `BATCH` CTCPs at the middle or at the end of the message, instead of at the start.
+
+`GZIP`
+------
+
+> Since: 1.4
+
+The `GZIP` CTCP is used to indicate a GZIP-compressed IRC message.
+
+The syntax for the `GZIP` CTCP is as follows:
+
+    GZIP 0<base64-encoded gzip data>
+    GZIP 1<base128-encoded gzip data>
+    GZIP 2<raw gzip data>
+    GZIP 3<base252-encoded gzip data>
+
+The first variant (`GZIP 0`) uses the standard base64 alphabet as defined by [RFC 4648](https://tools.ietf.org/html/rfc4648), but without padding.
+
+The second variant (`GZIP 1`) uses only the bytes `0x80-0xFF`, sending only 7 bits per byte.
+
+The third variant (`GZIP 2`) quotes the bytes `NUL`, `CR`, `LF`, the CTCP byte, and the quote byte.
+
+The fourth variant (`GZIP 3`) uses all bytes except for `NUL`, `CR`, `LF`, or the CTCP byte. Parsing and generating this variant requries a BigInteger implementation. The alphabet can be generated in Python 3 with: ` bytes([x for x in range(256) if x not in {0, 1, 10, 13}])`. This variant doesn't follow normal quoting rules and the GZIP stream/`GZIP` CTCP stops at the first CTCP byte.
 
 Null CTCPs
 ==========
