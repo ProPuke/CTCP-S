@@ -73,13 +73,13 @@ The syntax for the `FORWARD` CTCP is as follows:
 
 There can be at most 1 `FORWARD FROM` and 1 `FORWARD TO` CTCP in one message. `FORWARD` CTCPs do not count against the 1 CTCP per message limit, and instead have their own limit.
 
-**Side note:** It is possible to use `FORWARD` in a DCC chat to identify a message as belonging to a channel. In which case, it is up to the receiving end to parse any channel modes and guarantee the sender is allowed to send the given message to the channel. The message should be displayed in the channel.
+**Side note:** It is possible to use `FORWARD` in a PM or DCC chat to identify a message as belonging to a channel. In which case, it is up to the receiving end to parse any channel modes and guarantee the sender is allowed to send the given message to the channel. The message should be displayed in the channel.
 
 ### New in 1.5
 
 As of CTCP-S 1.5, the syntax for the `FORWARD` CTCP is as follows:
 
-    FORWARD (FROM|TO) <ID>[ <ID>]
+    FORWARD (FROM|TO) <ID>[ <ID>...]
 
 This change was made in order to allow forwarding across multiple bridges. Example:
 
