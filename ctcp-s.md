@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.5
+> Version: 1.6
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -139,6 +139,20 @@ The second variant (`GZIP 1`) uses only the bytes `0x80-0xFF`, sending only 7 bi
 The third variant (`GZIP 2`) quotes the bytes `NUL`, `CR`, `LF`, the CTCP byte, and the quote byte.
 
 The fourth variant (`GZIP 3`) uses all bytes except for `NUL`, `CR`, `LF`, or the CTCP byte. Parsing and generating this variant requries a BigInteger implementation. The alphabet can be generated in Python 3 with: ` bytes([x for x in range(256) if x not in {0, 1, 10, 13}])`. This variant doesn't follow normal quoting rules and the GZIP stream/`GZIP` CTCP stops at the first CTCP byte.
+
+`IGNORED`
+---------
+
+> Since: 1.6
+
+The `IGNORED` CTCP is used to find out whether you're currently being ignored by the target user.
+
+The syntax for the `IGNORED` CTCP is as follows:
+
+    For queries: IGNORED
+    For replies: IGNORED <true|false>
+
+An `IGNORED` reply MUST NOT contain information about the ignore filter. DO NOT, UNDER ANY CIRCUMSTANCES, SEND THE IGNORE MASK, THE IGNORE MODES, OR ANY OTHER INFORMATION ABOUT THE IGNORE IN AN `IGNORED` REPLY!
 
 Null CTCPs
 ==========
