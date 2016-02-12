@@ -187,11 +187,12 @@ There can be any amount of `FORMAT`/`F` CTCPs in a message. `FORMAT`/`F` CTCPs d
 
 ### Color codes
 
-Color codes are a flag in the format FG,BG, where either side can be omitted.
+Color codes are a flag in the format `FG,BG`, where either side can be omitted.
 
-Omitting either side acts as a no-change. When omitting BG, you MAY omit the comma.
+Omitting either side acts as a no-change. When omitting `BG`, you MUST omit the comma. Omitting both sides (i.e. leaving just
+the comma) is equivalent to `99,99`.
 
-There are 2 formats for FG and BG: #RRGGBB and 0-99. The former MUST have all fields present,
+There are 2 formats for `FG` and `BG`: `#RRGGBB` and 0-99. The former MUST have all fields present,
 while the latter MUST be represented as a single-digit or two-digit number. 00-09 MUST be
 treated as 0-9.
 
