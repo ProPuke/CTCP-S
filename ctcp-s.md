@@ -198,6 +198,7 @@ treated as 0-9.
 Valid values for FG and BG are as follows:
 
 | Value | Description                 |
+|-------|-----------------------------|
 |#rrggbb| Hexadecimal RGB color code  |
 |   0   | White color                 |
 |   1   | Black color                 |
