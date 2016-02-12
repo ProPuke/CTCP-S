@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.6
+> Version: 1.7
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -153,6 +153,78 @@ The syntax for the `IGNORED` CTCP is as follows:
     For replies: IGNORED <true|false>
 
 An `IGNORED` reply MUST NOT contain information about the ignore filter. DO NOT, UNDER ANY CIRCUMSTANCES, SEND THE IGNORE MASK, THE IGNORE MODES, OR ANY OTHER INFORMATION ABOUT THE IGNORE IN AN `IGNORED` REPLY!
+
+`FORMAT` or `F`
+---------------
+
+> Since: 1.7
+
+The `FORMAT` or `F` inline CTCP is used to add formatting in a standardized way.
+
+The syntax is as follows:
+
+    F <flags>
+
+Where \<flags\> can be any combination of:
+
+| Flag | Notes                                 |
+|------|---------------------------------------|
+|  b   | Toggle bold on/off                    |
+|  i   | Toggle italic on/off                  |
+|  u   | Toggle underline on/off               |
+|  s   | Toggle strikethrough on/off           |
+|  r   | Reset all formatting                  |
+|  n   | Swap foreground and background colors |
+| FG,BG| Color codes. See below                |
+
+`r` MAY be specified at the same time as other formatting. In which case, all other formatting MUST be ignored.
+
+`n` MAY be used to make the font color transparent, assuming the default background color is transparent. See below.
+
+Unknown flags MUST be ignored. If a flag appears multiple times, they MUST be combined in-order, from left to right.
+
+There can be any amount of `FORMAT`/`F` CTCPs in a message. `FORMAT`/`F` CTCPs do not count against the 1 CTCP per message limit.
+
+### Color codes
+
+Color codes are a flag in the format FG,BG, where either side can be omitted.
+
+Omitting either side acts as a no-change. When omitting BG, you MAY omit the comma.
+
+There are 2 formats for FG and BG: #RRGGBB and 0-99. The former MUST have all fields present,
+while the latter MUST be represented as a single-digit or two-digit number. 00-09 MUST be
+treated as 0-9.
+
+Valid values for FG and BG are as follows:
+
+| Value | Description                 |
+|#rrggbb| Hexadecimal RGB color code  |
+|   0   | White color                 |
+|   1   | Black color                 |
+|   2   | Blue color                  |
+|   3   | Green color                 |
+|   4   | Light Red color             |
+|   5   | Brown color                 |
+|   6   | Purple color                |
+|   7   | Orange color                |
+|   8   | Yellow color                |
+|   9   | Light Green color           |
+|  10   | Cyan color                  |
+|  11   | Light Cyan color            |
+|  12   | Light Blue color            |
+|  13   | Pink color                  |
+|  14   | Grey color                  |
+|  15   | Light Grey color            |
+|  99   | Reset Color                 |
+
+Invalid/unknown values should be treated as 99/Reset Color. This includes invalid and incomplete #RRGGBB.
+
+### Examples
+
+    \001F 4\001This line is red.
+    \001F bb\001This line is not bold.
+    \001F b\001\001F b\001Neither is this one.
+    \001F #537465#67616e#6f6772#617068#792100\001Steganography!
 
 Null CTCPs
 ==========
