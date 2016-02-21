@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.7
+> Version: 1.8
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -227,6 +227,42 @@ Invalid/unknown values should be treated as 99/Reset Color. This includes invali
     \001F bb\001This line is not bold.
     \001F b\001\001F b\001Neither is this one.
     \001F #537465#67616e#6f6772#617068#792100\001Steganography!
+
+`URI`
+-----
+
+> Since: 1.8
+
+The `URI` inline CTCP lets you title URIs.
+
+Syntax:
+
+    URI <URI> <text>
+
+As with other inline CTCPs, there can be any amount of URI CTCPs in a message.
+
+### Examples
+
+    \001URI http://t.co/whatever example.com\001
+
+`IMAGE`
+-------
+
+> Since: 1.8
+
+The `IMAGE` inline CTCP lets you add inline images. Useful for emoticons and emoji.
+
+Syntax:
+
+    IMAGE <URI> <width> <height> <fallback>
+
+`<width>` and `<height>` can be set to `-1` for automatic width and height.
+
+As with other inline CTCPs, there can be any amount of IMAGE CTCPs in a message.
+
+### Examples
+
+    \001IMAGE http://example.com/aceofhearts.png -1 -1 🂱\001
 
 Null CTCPs
 ==========
