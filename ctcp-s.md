@@ -243,7 +243,7 @@ As with other inline CTCPs, there can be any amount of URI CTCPs in a message.
 
 ### Examples
 
-    \001URI http://t.co/whatever example.com\001
+    Hello! So I just heard about \001URI http://t.co/whatever example.com\001 and you should check it out!
 
 `IMAGE`
 -------
@@ -262,7 +262,7 @@ As with other inline CTCPs, there can be any amount of IMAGE CTCPs in a message.
 
 ### Examples
 
-    \001IMAGE http://example.com/aceofhearts.png -1 -1 🂱\001
+    Hey I'm an \001IMAGE http://example.com/aceofhearts.png -1 -1 🂱\001!
 
 Null CTCPs
 ==========
