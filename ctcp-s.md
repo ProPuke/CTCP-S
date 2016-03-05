@@ -176,6 +176,7 @@ Where \<flags\> can be any combination of:
 |  r   | Reset all formatting                  |
 |  n   | Swap foreground and background colors |
 | FG,BG| Color codes. See below                |
+|  ` ` |(empty space) Ignored. Simple separator|
 
 `r` MAY be specified at the same time as other formatting. In which case, all other formatting MUST be ignored.
 
