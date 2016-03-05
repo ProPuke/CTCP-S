@@ -226,7 +226,7 @@ Invalid/unknown values should be treated as 99/Reset Color. This includes invali
     \001F 4\001This line is red.
     \001F bb\001This line is not bold.
     \001F b\001\001F b\001Neither is this one.
-    \001F #537465#67616e#6f6772#617068#792100\001Steganography!
+    \001F #537465#67616e#6f6772#617068#79210099\001Steganography!
 
 `URI`
 -----
