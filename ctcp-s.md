@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.8
+> Version: 1.9
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -242,9 +242,33 @@ Syntax:
 
 As with other inline CTCPs, there can be any amount of URI CTCPs in a message.
 
+### Special URIs
+
+#### `msg:` URIs
+
+> Since: 1.9
+
+The `msg:` URI sends a message back to sender. Its purpose is to allow for interactive content.
+
+Syntax:
+
+    msg:<message text>[?notice]
+
+The message MUST be sent to the target, and MUST contain: the sender, followed by a colon, `:`, followed by a space, ` `.
+
+If the message containing a `msg:` URI was sent to a channel, the target of the `msg:` is the channel.
+
+If the message containing a `msg:` URI was sent to an user, the target of the `msg:` is the sender.
+
+A `msg:` URI may contain a query string, which is separated by a `?`. If this query string is "notice", then the message MUST
+be sent through a `NOTICE` instead of a `PRIVMSG`.
+
+Note that the message text MUST be percent-encoded.
+
 ### Examples
 
     Hello! So I just heard about \001URI http://t.co/whatever example.com\001 and you should check it out!
+    \001URI msg:prev%20some_long_id <- Previous Messages\001 \001URI msg:next%20some_other_long_id Next Messages ->\001
 
 `IMAGE`
 -------
