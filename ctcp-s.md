@@ -1,7 +1,7 @@
 CTCP-S
 ======
 
-> Version: 1.10
+> Version: 1.11
 
 CTCP-S adds a few new CTCPs, and changes a few things about CTCP.
 
@@ -10,6 +10,11 @@ First, unless otherwise stated, there can be at most 1 CTCP in a message.
 Second, there can be at most 1 normal message in a CTCP message. A normal message is the concatenation of every non-CTCP part of a message.
 
 This specification does not invalidate the original CTCP specification. Its sole purpose is to extend the original.
+
+How to read examples in this document
+-------------------------------------
+
+Examples in this document use `\ddd` where `d` is a decimal digit to indicate a character with that decimal (**NOT** octal!) value, and `\\` to indicate a literal `\`.
 
 Examples
 --------
@@ -88,8 +93,8 @@ This change was made in order to allow forwarding across multiple bridges. Examp
     Bridge2 PRIVMSG Bridge3 :\001FORWARD TO Other\001\001FOWARD FROM Bridge1 User\001something
     Bridge3 PRIVMSG Other :\001FOWARD FROM Bridge2 Bridge1 User\001something
 
-`BATCH` and `BATCHEND`
-----------------------
+`BATCH` and `BATCHEND` and `BATCH+`
+-----------------------------------
 
 > Since: 1.3  
 > See also: http://ircv3.net/specs/extensions/batch-3.2.html
@@ -102,11 +107,26 @@ The syntax for the `BATCH` and `BATCHEND` CTCPs is as follows:
     BATCH <ID>
     BATCHEND <ID>
 
+> Since: 1.11
+> 
+>     BATCH+ <ID>
+
 `<ID>` is a simple identifier and may contain spaces.
 
-There can be at most 1 `BATCH` or `BATCHEND` CTCP in one message. `BATCH` and `BATCHEND` CTCPs do not count against the 1 CTCP per message limit.
+There can be at most 1 `BATCH` or `BATCHEND` or `BATCH+` CTCP in one message. `BATCH` and `BATCHEND` and `BATCH+` CTCPs do not count against the 1 CTCP per message limit. `BATCH+` concatenates with the next `BATCH` (or `BATCHEND` or `BATCH+`).
 
 ### Example
+
+     - - // non-batched messages here // - - 
+    PRIVMSG User :\001BATCH 1\001public class HelloWorld {
+    PRIVMSG User :\001BATCH 1\001    public static void main(String[] args) {
+    PRIVMSG User :\001BATCH+ 1\001        System.out.println(
+    PRIVMSG User :\001BATCH 1\001"Hello World!");
+    PRIVMSG User :\001BATCH 1\001    }
+    PRIVMSG User :\001BATCHEND 1\001}
+     - - // more non-batched messages here // - - 
+
+Is equivalent to:
 
      - - // non-batched messages here // - - 
     PRIVMSG User :\001BATCH 1\001public class HelloWorld {
@@ -323,6 +343,53 @@ For backwards compatibility, it is strongly recommended to keep replying to the 
     :Target NOTICE User :\001QUERY QUERY QUERY VERSION TIME USERINFO CLIENTINFO AVATAR IGNORED DCC FINGER\001
     :User PRIVMSG Target :\001QUERY VERSION\001
     :Target NOTICE User :\001QUERY VERSION SomeIRC 1.0 - Linux x86_64\001
+
+`SUB`
+-----
+
+> Since: 1.11
+
+The `SUB` CTCP allows you to create (temporary) replacement/substitution "functions".
+
+Syntax:
+
+    SUB <ID> <replacement function>
+
+Where `ID` is a CTCP ID and `replacement function` is a string.
+
+The special syntax for `replacement function` is described below:
+
+- `$$` = literal `$`.
+- `${number}` = `number`th argument, where `0` is the CTCP name.
+- `${number+}` = `number`th argument onwards.
+- `${number1+number2}` = `number1`th argument onwards, up until `number2`th argument, inclusive, where `number1` < `number2`.
+- Everything else: literal.
+
+A `replacement function` that doesn't conform to the above syntax should be ignored and silently discarded.
+
+There can be any amount of `SUB` CTCPs in a message.
+
+Notes:
+
+- A `SUB` CTCP can override a previous `SUB` CTCP and/or any user- or client-defined CTCP, except for `SUB` itself.
+- A `SUB` CTCP with only an ID (and no space after the ID) clears any previously-defined `SUB` with the same ID.
+- A `SUB` CTCP, when used together with `BATCH`, propagates through the same `BATCH` until overriden by another `SUB` CTCP, or until the end of the batch.
+- A `SUB` can define another `SUB`.
+- A `SUB` may or may not halt. It is currently unknown whether you can determine if a given `SUB` halts. It is also currently unknown whether `SUB` is turing-complete.
+
+### Examples
+
+    :User PRIVMSG Target :\001SUB HUG \\\001ACTION hugs ${1}\\\001\001\001HUG Someone\001\001HUG SomeoneElse\001\001HUG YetAnother\001
+    :User PRIVMSG Target :\001SUB A test\001\001A\001
+    :User PRIVMSG Target :\001SUB A \\\001SUB ${1} ${2+}\\\001\001\001A TEST Hi!\001\001TEST\001
+    :User PRIVMSG Target :\001SUB A \\\001A\\\001\001\001A\001
+
+Are equivalent to:
+
+    :User PRIVMSG Target :\001ACTION hugs Someone\001\001ACTION hugs SomeoneElse\001\001ACTION hugs YetAnother\001
+    :User PRIVMSG Target :test
+    :User PRIVMSG Target :Hi!
+    [never terminates]
 
 Null CTCPs
 ==========
